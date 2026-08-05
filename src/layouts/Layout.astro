@@ -27,6 +27,20 @@ const ogImage = image ? (image.startsWith('http') ? image : new URL(image, site)
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
+    <!-- Google Analytics 4 -->
+    {
+      import.meta.env.PUBLIC_GA_ID && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`} is:inline />
+          <script define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }} is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', gaId);
+          </script>
+        </>
+      )
+    }
     <meta name="description" content={ogDescription} />
     <link rel="canonical" href={canonicalUrl} />
     <!-- Open Graph -->
